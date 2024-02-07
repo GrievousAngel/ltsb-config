@@ -1,6 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigAdminWeb", "ConfigAdminWeb\ConfigAdminWeb.csproj", "{F24109EA-F3E5-43B4-AC07-003684257B98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigAdmin.Web", "ConfigAdmin.Web\ConfigAdmin.Web.csproj", "{F24109EA-F3E5-43B4-AC07-003684257B98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{113A8134-AAE7-46FD-B5E8-C83410A27C0F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		settings\Code Cleanup Settings.DotSettings = settings\Code Cleanup Settings.DotSettings
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

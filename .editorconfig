@@ -1,0 +1,18 @@
+[*.csproj]
+indent_style = space
+indent_size = 2
+ij_xml_space_inside_empty_tag = true
+
+[*.config]
+indent_style = space
+indent_size = 2
+ij_xml_space_inside_empty_tag = true
+
+[*.targets]
+indent_style = space
+indent_size = 2
+
+[*.props]
+indent_style = space
+indent_size = 2
+ij_xml_space_inside_empty_tag = true
