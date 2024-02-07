@@ -1,3 +1,4 @@
+using ConfigAdmin;
 using ConfigAdmin.Features.Index;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddRazorPages();
     services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetIndex.Handler>());
+    services.AddServices();
 }
 
 void ConfigureApplication(WebApplication webApplication)
