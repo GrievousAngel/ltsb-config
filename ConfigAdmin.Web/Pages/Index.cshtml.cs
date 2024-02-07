@@ -1,3 +1,5 @@
+using ConfigAdmin.Features.Index;
+using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ConfigAdminWeb.Pages;
@@ -5,55 +7,15 @@ namespace ConfigAdminWeb.Pages;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> logger;
+    private readonly IMediator mediator;
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public IndexModel(ILogger<IndexModel> logger, IMediator mediator)
     {
         this.logger = logger;
+        this.mediator = mediator;
     }
 
-    public Result Data { get; private set; }
+    public GetIndex.Result Data { get; private set; }
 
-    public void OnGet()
-    {
-        logger.LogDebug("Getting Servers");
-
-        Data = new Result
-               {
-                   Servers =
-                   [
-                       new Result.Server
-                       {
-                           CookieDomain = "dummy.DOMAIN.COMPANY.COM",
-                           Database = "example_db",
-                           Domain = "MYDOMAIN",
-                           IpAddress = "10.200.0.3",
-                           Name = "DEFAULTS",
-                           ServerName = "MRAPPPOOLPORTL01",
-                           Url = "http://dummy.DOMAIN.COMPANY.COM/Available.html"
-                       }
-                   ]
-               };
-    }
-
-    public record Result
-    {
-        public List<Server> Servers { get; init; }
-
-        public record Server
-        {
-            public string CookieDomain { get; init; }
-
-            public string Database { get; init; }
-
-            public string Domain { get; init; }
-
-            public string IpAddress { get; init; }
-
-            public string Name { get; init; }
-
-            public string ServerName { get; init; }
-
-            public string Url { get; init; }
-        }
-    }
+    public async Task OnGetAsync() => Data = await mediator.Send(new GetIndex.Request());
 }
