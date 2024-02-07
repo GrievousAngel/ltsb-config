@@ -1,10 +1,43 @@
 ﻿@page
-@model IndexModel
+@model ConfigAdminWeb.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Servers";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Servers</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Server</th>
+                <th>Url</th>
+                <th>Database</th>
+                <th>Ip Address</th>
+                <th>Domain</th>
+                <th>Cookie Domain</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 0;}
+            @foreach (var item in Model.Data.Servers)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.ServerName</td>
+                    <td>@item.Url</td>
+                    <td>@item.Database</td>
+                    <td>@item.IpAddress</td>
+                    <td>@item.Domain</td>
+                    <td>@item.CookieDomain</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@item.Name">Edit</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
 </div>

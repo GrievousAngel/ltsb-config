@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
 		settings\Code Cleanup Settings.DotSettings = settings\Code Cleanup Settings.DotSettings
+		config.txt = config.txt
 	EndProjectSection
 EndProject
 Global
