@@ -2,12 +2,14 @@ namespace ConfigAdmin;
 
 public interface IConfigService
 {
-    ServerConfig GetConfiguration(string configFilePath);
+    ServerConfig Get(string configFilePath);
+
+    void Save(ServerConfig config);
 }
 
 public class ConfigService : IConfigService
 {
-    public ServerConfig GetConfiguration(string configFilePath)
+    public ServerConfig Get(string configFilePath)
     {
         var serverConfigs = new Dictionary<string, Server>();
 
@@ -61,17 +63,17 @@ public class ConfigService : IConfigService
 
         return new ServerConfig
                {
-                   Default = serverConfigs["DEFAULTS"],
-                   Servers = serverConfigs
-                             .Where(sc => sc.Key != "DEFAULTS")
-                             .ToDictionary(sc => sc.Key, sc => sc.Value)
+                   Servers = serverConfigs.ToDictionary(sc => sc.Key, sc => sc.Value)
                };
+    }
+
+    public void Save(ServerConfig config)
+    {
+        // TODO: Persist to file
     }
 }
 
 public class ServerConfig
 {
-    public Server Default { get; set; }
-
     public Dictionary<string, Server> Servers { get; set; }
 }

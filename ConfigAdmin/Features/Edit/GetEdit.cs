@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace ConfigAdmin.Features.Index;
+namespace ConfigAdmin.Features.Edit;
 
-public static class GetIndex
+public static class GetEdit
 {
     public class Handler : IRequestHandler<Request, Result>
     {
@@ -18,24 +18,22 @@ public static class GetIndex
 
         public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
-            logger.LogDebug("Retrieving list of servers");
-
             // TODO: Pass in file path from appSettings
             var config = configService.Get("../config.txt");
 
-            var servers = new List<Server>();
-            servers.AddRange(config.Servers.Values);
+            config.Servers.TryGetValue(request.Name, out var server);
 
-            return new Result { Servers = servers };
+            return new Result { Server = server };
         }
     }
 
     public class Request : IRequest<Result>
     {
+        public string Name { get; init; }
     }
 
     public record Result
     {
-        public List<Server> Servers { get; init; }
+        public Server? Server { get; set; }
     }
 }

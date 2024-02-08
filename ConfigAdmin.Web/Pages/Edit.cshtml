@@ -1,0 +1,69 @@
+﻿@page
+@model EditModel
+@{
+    ViewData["Title"] = "Server";
+}
+
+<div class="text-center">
+
+    <h2>Edit</h2>
+
+    <h4>Server - @Model.Data.Server.Name</h4>
+    <hr/>
+    <div class="row">
+        <div>
+            <form method="post">
+
+                <input type="hidden" asp-for="Data.Server.Name"/>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Server Name</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Data.Server.ServerName" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Url</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Data.Server.Url" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Database</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Data.Server.Database" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Ip Address</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Data.Server.IpAddress" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Domain</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Data.Server.Domain" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Cookie Domain</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Data.Server.CookieDomain" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <a class="btn btn-sm btn-secondary" href="Index" role="button">Cancel</a>
+                    <input type="submit" value="Save" class="btn btn-sm btn-primary"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
