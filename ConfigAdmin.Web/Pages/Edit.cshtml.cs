@@ -31,7 +31,12 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(GetEdit.Result data)
     {
-        await mediator.Send(new PostEdit.Request { Properties = data.Properties });
+        await mediator.Send(
+            new PostEdit.Request
+            {
+                Name = data.Name,
+                Properties = data.Properties
+            });
 
         return RedirectToPage(nameof(Index));
     }

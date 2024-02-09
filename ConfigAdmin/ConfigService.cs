@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.Extensions.Options;
 
 namespace ConfigAdmin;
@@ -6,7 +7,7 @@ public interface IConfigService
 {
     ServerConfig Get();
 
-    void Save(ServerConfig config);
+    void Save(string name, Dictionary<string, string> properties);
 }
 
 public sealed class ConfigService : IConfigService
@@ -56,9 +57,56 @@ public sealed class ConfigService : IConfigService
                };
     }
 
-    public void Save(ServerConfig config)
+    public void Save(string name, Dictionary<string, string> properties)
     {
-        // TODO: Persist to file
+        var config = Get();
+
+        var server = config.Servers[name];
+
+        // So we don't get key clashes clear before we repopulate
+        server.Clear();
+        foreach (var item in properties)
+        {
+            server.Add(item.Key, item.Value);
+        }
+
+        // Write back to file
+        Persist(config);
+    }
+
+    private void Persist(ServerConfig newConfig)
+    {
+        const string DefaultsKey = "DEFAULTS";
+
+        var contentBuilder = new StringBuilder();
+        var iLoop = 0;
+        var serverCount = newConfig.Servers.Count;
+
+        foreach (var server in newConfig.Servers)
+        {
+            // Don't add a key suffix if this is the defaults key
+            var keySuffix = server.Key.Equals(DefaultsKey)
+                ? ""
+                : string.Concat("{", server.Key, "}");
+
+            contentBuilder.AppendLine($";START {server.Key}");
+            foreach (var property in server.Value)
+            {
+                contentBuilder.AppendLine($"{property.Key}{keySuffix}={property.Value}");
+            }
+
+            contentBuilder.AppendLine($";END {server.Key}");
+            iLoop++;
+
+            // Don't add an additional line
+            if (serverCount > iLoop)
+            {
+                contentBuilder.AppendLine();
+            }
+        }
+
+        // TODO: Consider concurrency, has the file changed
+        File.WriteAllText(appSettings.ConfigFilePath, contentBuilder.ToString());
     }
 }
 

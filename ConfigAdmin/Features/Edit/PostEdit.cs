@@ -18,18 +18,7 @@ public static class PostEdit
 
         public async Task Handle(Request request, CancellationToken cancellationToken)
         {
-            var config = configService.Get();
-
-            var server = config.Servers[request.Name];
-
-            // So we don't get key clashes clear before we repopulate
-            server.Clear();
-            foreach (var item in request.Properties)
-            {
-                server.Add(item.Key, item.Value);
-            }
-
-            configService.Save(config);
+            configService.Save(request.Name, request.Properties);
         }
     }
 
