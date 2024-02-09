@@ -112,5 +112,7 @@ public sealed class ConfigService : IConfigService
 
 public sealed class ServerConfig
 {
+    public Dictionary<string, string> Defaults => Servers["DEFAULTS"];
+
     public Dictionary<string, Dictionary<string, string>> Servers { get; set; }
 }

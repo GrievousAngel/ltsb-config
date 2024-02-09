@@ -26,8 +26,9 @@
                     </div>
                 }
 
-                <div class="form-group">
+                <div id="btn-group" class="form-group">
                     <a class="btn btn-sm btn-secondary" href="Index" role="button">Cancel</a>
+                    <button id="btn-new" type="button" class="btn btn-sm btn-success">Add Property</button>
                     <input type="submit" value="Save" class="btn btn-sm btn-primary"/>
                 </div>
             </form>
@@ -35,3 +36,7 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/js/edit.js" asp-append-version="true"></script>
+}
