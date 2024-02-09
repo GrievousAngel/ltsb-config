@@ -76,8 +76,6 @@ public sealed class ConfigService : IConfigService
 
     private void Persist(ServerConfig newConfig)
     {
-        const string DefaultsKey = "DEFAULTS";
-
         var contentBuilder = new StringBuilder();
         var iLoop = 0;
         var serverCount = newConfig.Servers.Count;
@@ -85,7 +83,7 @@ public sealed class ConfigService : IConfigService
         foreach (var server in newConfig.Servers)
         {
             // Don't add a key suffix if this is the defaults key
-            var keySuffix = server.Key.Equals(DefaultsKey)
+            var keySuffix = server.Key.Equals(Constants.DEFAULTS)
                 ? ""
                 : string.Concat("{", server.Key, "}");
 
@@ -112,7 +110,7 @@ public sealed class ConfigService : IConfigService
 
 public sealed class ServerConfig
 {
-    public Dictionary<string, string> Defaults => Servers["DEFAULTS"];
+    public Dictionary<string, string> Defaults => Servers[Constants.DEFAULTS];
 
     public Dictionary<string, Dictionary<string, string>> Servers { get; set; }
 }

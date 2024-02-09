@@ -20,12 +20,22 @@ public static class GetEdit
         {
             var config = configService.Get();
 
-            config.Servers.TryGetValue(request.Name, out var server);
+            config.Servers.TryGetValue(request.Name, out var properties);
+
+            if (request.Name != Constants.DEFAULTS)
+            {
+                // Remove existing properties from the defaults
+                // This is used to populate the drop down when adding new properties
+                foreach (var key in properties.Keys)
+                {
+                    config.Defaults.Remove(key);
+                }
+            }
 
             return new Result
                    {
                        Name = request.Name,
-                       Properties = server,
+                       Properties = properties,
                        Defaults = config.Defaults
                    };
         }

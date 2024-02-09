@@ -1,5 +1,4 @@
-﻿function addProperty() {
-    let propertyName = prompt("New property name");
+﻿function insertNewHtml(propertyName) {
     if (propertyName != null) {
         let btnGroup = document.getElementById("btn-group");
 
@@ -13,7 +12,25 @@
 
         btnGroup.parentNode.insertBefore(rowDiv, btnGroup);
     }
+}
 
+function addProperty() {
+
+    let serverName = document.getElementById("Data_Name");
+
+    if (serverName.value == "DEFAULTS") {
+        let propertyName = prompt("New property name");
+        insertNewHtml(propertyName);
+    } else {
+        modal.show();
+    }
 }
 
 document.getElementById("btn-new").addEventListener("click", addProperty);
+let modal = new bootstrap.Modal(document.getElementById('propertyModal'))
+
+$('#saveChangesBtn').on('click', function () {
+    let selectedProperty = $('#newPropertyName').val();
+    insertNewHtml(selectedProperty);
+    modal.hide();
+});

@@ -28,13 +28,33 @@
 
                 <div id="btn-group" class="form-group">
                     <a class="btn btn-sm btn-secondary" href="Index" role="button">Cancel</a>
-                    <button id="btn-new" type="button" class="btn btn-sm btn-success">Add Property</button>
                     <input type="submit" value="Save" class="btn btn-sm btn-primary"/>
+                    <button id="btn-new" type="button" class="btn btn-sm btn-success float-end">Add Property</button>
                 </div>
             </form>
         </div>
     </div>
 
+</div>
+
+<div class="modal fade" id="propertyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <select class="form-select" id="newPropertyName">
+                    <option value="">Please select</option>
+                    @foreach (var property in Model.Data.Defaults.Keys)
+                    {
+                        <option value="@property">@property</option>
+                    }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveChangesBtn">Accept</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
