@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigAdmin.Web", "ConfigAdmin.Web\ConfigAdmin.Web.csproj", "{F24109EA-F3E5-43B4-AC07-003684257B98}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{113A8134-AAE7-46FD-B5E8-C83410A27C0F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{113A8134-AAE7-46FD-B5E8-C83410A27C0F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		settings\Code Cleanup Settings.DotSettings = settings\Code Cleanup Settings.DotSettings
 		config.txt = config.txt
 		README.md = README.md
+		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigAdmin", "ConfigAdmin\ConfigAdmin.csproj", "{9C4242A7-4187-432D-B38F-8ECDBE9C996E}"
