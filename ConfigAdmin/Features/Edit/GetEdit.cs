@@ -18,8 +18,7 @@ public static class GetEdit
 
         public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
         {
-            // TODO: Pass in file path from appSettings
-            var config = configService.Get("../config.txt");
+            var config = configService.Get();
 
             config.Servers.TryGetValue(request.Name, out var server);
 

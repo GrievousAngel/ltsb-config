@@ -1,6 +1,6 @@
 namespace ConfigAdmin;
 
-public class Server
+public sealed class Server
 {
     public string CookieDomain { get; set; }
 

@@ -1,22 +1,31 @@
+using Microsoft.Extensions.Options;
+
 namespace ConfigAdmin;
 
 public interface IConfigService
 {
-    ServerConfig Get(string configFilePath);
+    ServerConfig Get();
 
     void Save(ServerConfig config);
 }
 
-public class ConfigService : IConfigService
+public sealed class ConfigService : IConfigService
 {
-    public ServerConfig Get(string configFilePath)
+    private readonly AppSettings appSettings;
+
+    public ConfigService(IOptionsMonitor<AppSettings> appSettingOptions)
+    {
+        appSettings = appSettingOptions.CurrentValue;
+    }
+
+    public ServerConfig Get()
     {
         var serverConfigs = new Dictionary<string, Server>();
 
         var server = "";
         var keySuffix = "";
 
-        foreach (var line in File.ReadLines(configFilePath))
+        foreach (var line in File.ReadLines(appSettings.ConfigFilePath))
         {
             if (line.StartsWith(";END") || string.IsNullOrWhiteSpace(line))
             {
@@ -73,7 +82,7 @@ public class ConfigService : IConfigService
     }
 }
 
-public class ServerConfig
+public sealed class ServerConfig
 {
     public Dictionary<string, Server> Servers { get; set; }
 }

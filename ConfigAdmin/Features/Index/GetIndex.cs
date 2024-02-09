@@ -20,8 +20,7 @@ public static class GetIndex
         {
             logger.LogDebug("Retrieving list of servers");
 
-            // TODO: Pass in file path from appSettings
-            var config = configService.Get("../config.txt");
+            var config = configService.Get();
 
             var servers = new List<Server>();
             servers.AddRange(config.Servers.Values);

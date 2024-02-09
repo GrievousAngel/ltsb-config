@@ -18,8 +18,7 @@ public static class PostEdit
 
         public async Task Handle(Request request, CancellationToken cancellationToken)
         {
-            // TODO: Pass in file path from appSettings
-            var config = configService.Get("../config.txt");
+            var config = configService.Get();
 
             var server = config.Servers[request.Server.Name];
 
