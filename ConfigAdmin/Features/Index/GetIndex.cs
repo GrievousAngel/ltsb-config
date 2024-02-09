@@ -22,10 +22,7 @@ public static class GetIndex
 
             var config = configService.Get();
 
-            var servers = new List<Server>();
-            servers.AddRange(config.Servers.Values);
-
-            return new Result { Servers = servers };
+            return new Result { Servers = config.Servers };
         }
     }
 
@@ -35,6 +32,6 @@ public static class GetIndex
 
     public record Result
     {
-        public List<Server> Servers { get; init; }
+        public Dictionary<string, Dictionary<string, string>> Servers { get; set; }
     }
 }

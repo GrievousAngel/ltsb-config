@@ -21,7 +21,7 @@ public class EditModel : PageModel
     public async Task<IActionResult> OnGetAsync(GetEdit.Request request)
     {
         Data = await mediator.Send(request);
-        if (Data.Server == null)
+        if (Data.Properties == null)
         {
             return NotFound();
         }
@@ -31,7 +31,7 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(GetEdit.Result data)
     {
-        await mediator.Send(new PostEdit.Request { Server = data.Server });
+        await mediator.Send(new PostEdit.Request { Properties = data.Properties });
 
         return RedirectToPage(nameof(Index));
     }

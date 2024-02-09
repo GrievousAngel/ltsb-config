@@ -20,7 +20,7 @@ public sealed class ConfigService : IConfigService
 
     public ServerConfig Get()
     {
-        var serverConfigs = new Dictionary<string, Server>();
+        var serverConfigs = new Dictionary<string, Dictionary<string, string>>();
 
         var server = "";
         var keySuffix = "";
@@ -36,7 +36,7 @@ public sealed class ConfigService : IConfigService
             {
                 server = line.Substring(7, line.Length - 7);
                 keySuffix = "{" + server + "}";
-                serverConfigs[server] = new Server { Name = server };
+                serverConfigs[server] = new Dictionary<string, string>();
                 continue;
             }
 
@@ -47,27 +47,7 @@ public sealed class ConfigService : IConfigService
 
             var activeConfig = serverConfigs[server];
 
-            switch (key)
-            {
-                case "SERVER_NAME":
-                    activeConfig.ServerName = value;
-                    break;
-                case "URL":
-                    activeConfig.Url = value;
-                    break;
-                case "DB":
-                    activeConfig.Database = value;
-                    break;
-                case "IP_ADDRESS":
-                    activeConfig.IpAddress = value;
-                    break;
-                case "DOMAIN":
-                    activeConfig.Domain = value;
-                    break;
-                case "COOKIE_DOMAIN":
-                    activeConfig.CookieDomain = value;
-                    break;
-            }
+            activeConfig.Add(key, value);
         }
 
         return new ServerConfig
@@ -84,5 +64,5 @@ public sealed class ConfigService : IConfigService
 
 public sealed class ServerConfig
 {
-    public Dictionary<string, Server> Servers { get; set; }
+    public Dictionary<string, Dictionary<string, string>> Servers { get; set; }
 }

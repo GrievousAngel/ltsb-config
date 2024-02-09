@@ -20,21 +20,23 @@ public static class PostEdit
         {
             var config = configService.Get();
 
-            var server = config.Servers[request.Server.Name];
+            var server = config.Servers[request.Name];
 
-            server.CookieDomain = request.Server.CookieDomain;
-            server.Database = request.Server.Database;
-            server.Domain = request.Server.Domain;
-            server.IpAddress = request.Server.IpAddress;
-            server.ServerName = request.Server.ServerName;
-            server.Url = request.Server.Url;
+            // So we don't get key clashes clear before we repopulate
+            server.Clear();
+            foreach (var item in request.Properties)
+            {
+                server.Add(item.Key, item.Value);
+            }
 
             configService.Save(config);
         }
     }
 
-    public class Request : IRequest
+    public sealed class Request : IRequest
     {
-        public Server Server { get; set; }
+        public string Name { get; set; }
+
+        public Dictionary<string, string> Properties { get; set; }
     }
 }

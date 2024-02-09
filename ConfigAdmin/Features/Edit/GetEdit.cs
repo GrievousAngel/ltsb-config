@@ -22,7 +22,7 @@ public static class GetEdit
 
             config.Servers.TryGetValue(request.Name, out var server);
 
-            return new Result { Server = server };
+            return new Result { Name = request.Name, Properties = server };
         }
     }
 
@@ -33,6 +33,8 @@ public static class GetEdit
 
     public record Result
     {
-        public Server? Server { get; set; }
+        public string Name { get; set; }
+
+        public Dictionary<string, string> Properties { get; set; }
     }
 }

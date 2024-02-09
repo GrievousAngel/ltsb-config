@@ -11,28 +11,36 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Server</th>
-            <th>Database</th>
-            <th>Ip Address</th>
-            <th>Domain</th>
+            <th>Entry 1</th>
+            <th>Entry 2</th>
+            <th>Entry 3</th>
+            <th>Entry 4</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        @{ var i = 0; }
         @foreach (var item in Model.Data.Servers)
         {
             <tr>
-                <td>@item.Name</td>
-                <td>@item.ServerName</td>
-                <td>@item.Database</td>
-                <td>@item.IpAddress</td>
-                <td>@item.Domain</td>
+                <td>@item.Key</td>
+
+                @for (var i = 0; i < 4; i++)
+                {
+                    if (item.Value.Count > i)
+                    {
+                        var property = item.Value.ElementAt(i);
+                        <td>@property.Value</td>
+                    }
+                    else
+                    {
+                        <td>&nbsp;</td>
+                    }
+                }
+
                 <td>
-                    <a asp-page="Edit" asp-route-name="@item.Name">Edit</a>
+                    <a asp-page="Edit" asp-route-name="@item.Key">Edit</a>
                 </td>
             </tr>
-            i++;
         }
         </tbody>
     </table>
