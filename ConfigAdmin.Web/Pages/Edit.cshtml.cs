@@ -16,7 +16,7 @@ public class EditModel : PageModel
         this.mediator = mediator;
     }
 
-    public PageData Data { get; private set; }
+    public PageData Data { get; private set; } = null!;
 
     public async Task<IActionResult> OnGetAsync(string name)
     {
@@ -53,24 +53,23 @@ public class EditModel : PageModel
         }
 
         ModelState.AddModelError("", response.ErrorMessage!);
-        Data = new PageData
+        Data = data with
                {
                    Defaults = response.Defaults,
-                   FileLastModified = response.FileLastModified,
-                   Name = data.Name,
-                   Properties = data.Properties
+                   FileLastModified = response.FileLastModified
                };
+
         return Page();
     }
 
-    public class PageData
+    public record PageData
     {
-        public Dictionary<string, string> Defaults { get; set; }
+        public required Dictionary<string, string> Defaults { get; set; }
 
         public long FileLastModified { get; set; }
 
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
-        public Dictionary<string, string> Properties { get; set; }
+        public required Dictionary<string, string> Properties { get; set; }
     }
 }

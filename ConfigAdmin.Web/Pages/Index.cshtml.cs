@@ -15,7 +15,16 @@ public class IndexModel : PageModel
         this.mediator = mediator;
     }
 
-    public GetIndex.Result Data { get; private set; }
+    public PageData Data { get; private set; } = null!;
 
-    public async Task OnGetAsync() => Data = await mediator.Send(new GetIndex.Request());
+    public async Task OnGetAsync()
+    {
+        var response = await mediator.Send(new GetIndex.Request());
+        Data = new PageData { Servers = response.Servers };
+    }
+
+    public record PageData
+    {
+        public required Dictionary<string, Dictionary<string, string>> Servers { get; set; }
+    }
 }

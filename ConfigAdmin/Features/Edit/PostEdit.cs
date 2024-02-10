@@ -48,7 +48,7 @@ public static class PostEdit
         }
     }
 
-    public sealed class Request : IRequest<Response>
+    public record Request : IRequest<Response>
     {
         public long FileLastModified { get; set; }
 
@@ -57,7 +57,7 @@ public static class PostEdit
         public Dictionary<string, string> Properties { get; set; }
     }
 
-    public sealed class Response
+    public record Response
     {
         public Dictionary<string, string> Defaults { get; set; }
 

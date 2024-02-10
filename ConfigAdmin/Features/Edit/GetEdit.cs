@@ -47,12 +47,12 @@ public static class GetEdit
         }
     }
 
-    public class Request : IRequest<Response?>
+    public record Request : IRequest<Response?>
     {
         public string Name { get; init; }
     }
 
-    public class Response
+    public record Response
     {
         public Dictionary<string, string> Defaults { get; set; }
 

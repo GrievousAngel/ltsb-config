@@ -5,7 +5,7 @@ namespace ConfigAdmin.Features.Index;
 
 public static class GetIndex
 {
-    public class Handler : IRequestHandler<Request, Result>
+    public class Handler : IRequestHandler<Request, Response>
     {
         private readonly IConfigService configService;
         private readonly ILogger<Handler> logger;
@@ -16,21 +16,21 @@ public static class GetIndex
             this.configService = configService;
         }
 
-        public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
         {
             logger.LogDebug("Retrieving list of servers");
 
             var config = configService.Get();
 
-            return new Result { Servers = config.Servers };
+            return new Response { Servers = config.Servers };
         }
     }
 
-    public class Request : IRequest<Result>
+    public record Request : IRequest<Response>
     {
     }
 
-    public record Result
+    public record Response
     {
         public Dictionary<string, Dictionary<string, string>> Servers { get; set; }
     }
