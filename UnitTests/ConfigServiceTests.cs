@@ -13,9 +13,9 @@ public class ConfigServiceTests
         var service = new ConfigService(new MockAppSettings(filePath));
 
         var config = service.Get();
-        
+
         config.ShouldNotBeNull();
-        
+
         var defaultConfig = config.Servers[Constants.DEFAULTS];
         defaultConfig.Count.ShouldBe(6);
         defaultConfig["SERVER_NAME"].ShouldBe("MRAPPPOOLPORTL01");
@@ -24,7 +24,7 @@ public class ConfigServiceTests
         defaultConfig["IP_ADDRESS"].ShouldBe("10.200.0.3");
         defaultConfig["DOMAIN"].ShouldBe("MYDOMAIN");
         defaultConfig["COOKIE_DOMAIN"].ShouldBe("dummy.DOMAIN.COMPANY.COM");
-        
+
         var serverConfig = config.Servers["SRVTST0012"];
         serverConfig["SERVER_NAME"].ShouldBe("MRAPPPOOLPORTL0012");
         serverConfig["IP_ADDRESS"].ShouldBe("10.200.0.101");
@@ -41,17 +41,16 @@ public class ConfigServiceTests
         var serverConfig = config.Servers["SRVTST0003"];
         serverConfig.Add("DOMAIN", "TEST_DOMAIN");
         serverConfig.Add("DB", "TEST_DB");
-        service.Save("SRVTST0003", serverConfig);
+        service.Save("SRVTST0003", serverConfig, config.LastModified);
 
         var updatedConfig = service.Get();
         var updatedServer = updatedConfig.Servers["SRVTST0003"];
-        
+
         updatedServer["SERVER_NAME"].ShouldBe("MRAPPPOOLPORTL0003");
         updatedServer["IP_ADDRESS"].ShouldBe("10.200.0.100");
         updatedServer["DB"].ShouldBe("TEST_DB");
         updatedServer["DOMAIN"].ShouldBe("TEST_DOMAIN");
     }
-    
 
     private static string CreateTestConfigFile()
     {

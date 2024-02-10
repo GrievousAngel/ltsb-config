@@ -5,7 +5,7 @@ namespace ConfigAdmin.Features.Edit;
 
 public static class GetEdit
 {
-    public class Handler : IRequestHandler<Request, Result>
+    public class Handler : IRequestHandler<Request, Response?>
     {
         private readonly IConfigService configService;
         private readonly ILogger<Handler> logger;
@@ -16,12 +16,17 @@ public static class GetEdit
             this.configService = configService;
         }
 
-        public async Task<Result> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Response?> Handle(Request request, CancellationToken cancellationToken)
         {
             var config = configService.Get();
 
-            config.Servers.TryGetValue(request.Name, out var properties);
+            if (!config.Servers.ContainsKey(request.Name))
+            {
+                logger.LogWarning("Server with name {ServerName} does not exist", request.Name);
+                return null;
+            }
 
+            var properties = config.Servers[request.Name];
             if (request.Name != Constants.DEFAULTS)
             {
                 // Remove existing properties from the defaults
@@ -32,8 +37,9 @@ public static class GetEdit
                 }
             }
 
-            return new Result
+            return new Response
                    {
+                       FileLastModified = config.LastModified,
                        Name = request.Name,
                        Properties = properties,
                        Defaults = config.Defaults
@@ -41,14 +47,16 @@ public static class GetEdit
         }
     }
 
-    public class Request : IRequest<Result>
+    public class Request : IRequest<Response?>
     {
         public string Name { get; init; }
     }
 
-    public record Result
+    public class Response
     {
         public Dictionary<string, string> Defaults { get; set; }
+
+        public long FileLastModified { get; set; }
 
         public string Name { get; set; }
 

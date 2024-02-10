@@ -14,7 +14,10 @@
         <div>
             <form method="post">
 
+                <div id="validationSummary" asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                 <input type="hidden" asp-for="Data.Name"/>
+                <input type="hidden" asp-for="Data.FileLastModified"/>
 
                 @foreach (var property in Model.Data.Properties)
                 {

@@ -1,6 +1,6 @@
 ﻿namespace ConfigAdmin;
 
-public abstract class Constants
+public static class Constants
 {
     public const string DEFAULTS = "DEFAULTS";
 }
