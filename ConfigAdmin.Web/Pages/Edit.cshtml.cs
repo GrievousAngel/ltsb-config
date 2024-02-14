@@ -52,6 +52,10 @@ public class EditModel : PageModel
             return RedirectToPage(nameof(Index));
         }
 
+        // We need to reset model state else the original values for Defaults and 
+        // FileLastModified will be rendered in the UI from ModelState and not from Data
+        ModelState.Clear();
+
         ModelState.AddModelError("", response.ErrorMessage!);
         Data = data with
                {
